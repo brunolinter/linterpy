@@ -1,0 +1,18 @@
+# SYSTEM REQUIREMENTS:
+
+## Linux
+    apt-get update
+    apt-get upgrade
+
+## ANACONCA: 
+    sudo bash ./Anaconda3-2024.06-1-Linux-x86_64.sh
+
+## GIT
+    sudo apt-get install git
+
+# LLaVa: https://llava-vl.github.io/
+    pip install ollama
+    pip install llava
+    # sudo ollama run llava
+    # ou
+    # sudo ollama run llava --verbose

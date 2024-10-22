@@ -1,0 +1,115 @@
+# Sanity Check steps
+    1. Import data and libraries
+    2. Convert date to datetime format 
+        **data['Date'] = pd.to_datetime(data['Date'])**
+    3. Transforming strings to integers in an integer intended variable
+        **data['BuildingArea'] = data['BuildingArea'].replace(['missing', 'inf'],np.nan)**
+        **data['BuildingArea'] = data['BuildingArea'].astype(float)**
+    4. Check nulls and duplicates
+        **data.isnull().sum()**
+        **data.dupplicated().sum()
+    5. Drop duplicated values
+        **data.drop_duplicates(inplace=True)**
+        **data.reset_index(drop=True, inplace=True)**
+    6. Count values based on all object type columns
+        **cat_cols=['Suburb','Type','SellerG','Regionname']**
+        **  for column in cat_cols:                        **
+        **      print(data[column].value_counts())         **
+        **      print("-"*50)                              **
+
+# Univariate analysis
+    7. Plot graphs that helps to visualize the quantitative datas
+        eg.:
+        **sns.displot(data=data, x='BuildingArea', kind='kde')                                **
+        **plot.show()                                                                         **
+        **sns.boxplot(data=data, x='BuildingArea'showfliers=False) ## Showfliers controls the **                       **representation of outliers in the boxplots                                          **
+        **plt.show()                                                                          **
+    8. Plot True/False comparisons
+        **data.loc[data['Price']>0.8e7]**
+        **data.loc[data['BuildingArea']>5500]**
+
+# Bivariate analysis (relationship between several different variables)
+    9. Heatmaps
+        eg.:
+        **plt.figure(figsize=(10,5))                                         **           
+        **sns.heatmap(data.corr(),annot=True,cmap='Spectral',vmin=-1,vmax=1) **
+        **plt.show()                                                         **
+        
+    10. Correlations
+        eg.:
+        **data[['Total Space','Price']].corr()**
+    11. Scatterplots and Lineplots
+        eg.:
+        **sns.scatterplot(data=data, x='Distance',y='Price')       **
+        **sns.lineplot(data=data, x='Distance', y='Price', ci=None)**
+    12. Intervals with pd.cut() function
+        eg.:
+        **pd.cut(x,bins,labels=None,right=False)  //right=False includes the rightmost edge of the interval**
+        **data['Distance_bins']=pd.cut(data['Distance'], bins=[0,15,30,50],                                **         **labels=['Nearby','ModeratelyClose','Far'], right=False)                                          **
+    13. Catplots can also be used
+        eg.:
+        **sns.catplot(x='Price', **
+        ** col='Regionname',     **
+        ** data=data,            **
+        ** col_wrap=4,           **
+        ** kind='violin')        **
+
+# Treating missing values
+    14. Can be replaced with mean, median, and mode amoung the non missing values
+    15. Check null values:
+        eg.: pd.DataFrame({
+            'Count':data.isnull().sum()[data.isnull().sum()>0],
+            'Percentage':(data.isnull().sum()[data.isnull().sum()>0]/data.shape[0])*100
+            }
+            )
+    16. Check individual values: data.loc[data['Distance'].isnull()==True]
+    17. Transform missing data into the mean:
+        data['Bedroom']= data['Bedroom'].fillna(value=data.groupby(['Regionname','Type'])['Bedroom'].transform('mean'))
+    18. Transform the filled data type: data['Bedroom']=data['Bedroom'].astype(int)
+    19. Drop columns with more than 50% of data missing is a clever option to don't have bad conclusions
+        eg.: data_droped = data.drop(['BuildingArea','YearBuilt','AgeofProp'],axis=1)
+
+# Outliers detection and treatment
+    20. Check if the outliers is a typing mistake or a real outlier
+        eg.:
+        numeric_columns=['Rooms','Distance','Postcode','Bedroom','Bathroom','Car','Landsize','Propertycount','Price','Total_Space_New']
+    plt.figure(figsize=(15,7))
+    
+    for i,variable in enumerate(numeric_columns):
+        plt.subplot(4,4,i+1)
+        plt.boxplot(data2[variable], whis=1.5)
+        plt.tight_layout()
+        plt.title(variable)
+    
+    plt.show()
+    
+    21. Check percentage that is outside of the quantile range:
+        eg.:
+        Q1 = data[numeric_columns].quantile(0.25)
+        Q3 = data[numeric_columns].quantile(0.75)
+
+        IQR = Q3 - Q1
+
+        lower_whisker = Q1 - 1.5*IQR
+        upper_whisker = Q3 + 1.5*IQR
+        
+        ((data[numeric_columns] < lower_whisker) | (data[numeric_columns] > upper_whisker)).sum()/data.shape[0]*100
+        
+     22. Treat these outliers
+         eg.:
+            def treat_outliers(df,col):
+                """
+                treats outliers in a variable
+                col: str, name of the numerical variable
+                df: dataframe
+                col: name of the column
+                """
+                Q1 = df[col].quantile(0.25)
+                Q3 = df[col].quantile(0.75)
+                IQR = Q3 - Q1
+                lower_whisker=Q1-1.5*IQR
+                upper_whisker=Q3+1.5*IQR
+    
+                df[col]=np.clip(df[col], lower_whisker, upper_whisker)
+    
+            return df
