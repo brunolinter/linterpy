@@ -16,3 +16,11 @@
     # sudo ollama run llava
     # ou
     # sudo ollama run llava --verbose
+
+# CUDA installation
+    pre-installation (Chapter 2) = https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
+    https://www.freecodecamp.org/news/how-to-setup-windows-machine-for-ml-dl-using-nvidia-graphics-card-cuda/
+
+# ESP32 Installation
+
+    https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-macos-setup.html
