@@ -21,6 +21,71 @@
     pre-installation (Chapter 2) = https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
     https://www.freecodecamp.org/news/how-to-setup-windows-machine-for-ml-dl-using-nvidia-graphics-card-cuda/
 
+
+    # everyday to use
+    cd ~
+    nano .bashrc
+
+    # on last line add:
+    export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}} # make sure cuda version is correct
+    export PATH=/home/linter/.local/bin${PATH:+:${PATH}}
+
+    # CRTL+X, Y, Enter
+
+    source .bashrc
+    echo $PATH
+
 # ESP32 Installation
 
     https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-macos-setup.html
+
+# FTP Connection
+
+    sudo apt install ftp 
+
+    ftp server_ip_address # or, ftp username@server_ip_address
+    # password will be required in a prompt.
+
+# Docker
+
+    sudo apt install gnome-terminal
+
+    # Add Docker's official GPG key:
+    sudo apt-get update
+    sudo apt-get install ca-certificates curl
+    sudo install -m 0755 -d /etc/apt/keyrings
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+    # Add the repository to Apt sources:
+    echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+    sudo apt-get update
+    sudo apt-get install ./docker-desktop-amd64.deb
+
+    sudo usermod -aG docker $USER
+
+    newgrp docker
+
+    sudo docker run hello-world
+
+    # In case of error
+    sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+    sudo chmod g+rwx "$HOME/.docker" -R
+
+    # To open docker
+    systemctl --user start docker-desktop
+
+# MediaMTX
+    # Download first on https://github.com/bluenviron/mediamtx/releases
+    tar -zxvf mediamtx_v1.11.1_darwin_amd64.tar.gz
+    sudo mv mediamtx /usr/local/bin/
+    sudo cp mediamtx.yml /usr/local/etc/
+    # Customize mediamtx.yml as needed
+    mediamtx /usr/local/etc/mediamtx.yml
