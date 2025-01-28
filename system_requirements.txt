@@ -89,3 +89,9 @@
     sudo cp mediamtx.yml /usr/local/etc/
     # Customize mediamtx.yml as needed
     mediamtx /usr/local/etc/mediamtx.yml
+
+# sometimes
+    pip install tensorflow[and-cuda]==2.18.0
+    pip install ultralytics==8.3.58
+    pip install -I tensorflow[and-cuda]==2.18.0
+    export XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false
