@@ -95,3 +95,12 @@
     pip install ultralytics==8.3.58
     pip install -I tensorflow[and-cuda]==2.18.0
     export XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false
+
+# Setting Cuda/Cudnn in conda .venv
+    conda create -n test_gpu python=3.10
+    conda update -n test_gpu -c defaults conda # conda update -n test_gpu -c defaults conda
+    conda activate test_gpu
+    conda install conda-forge::cudatoolkit=11.2.2 # https://anaconda.org/conda-forge/cudatoolkit/files 
+    conda install conda-forge::cudnn=8.1.0.77 # https://anaconda.org/conda-forge/cudnn/files?page=1
+    pip install --upgrade pip
+    pip install tensorflow-gpu==2.10.0
