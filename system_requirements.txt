@@ -4,7 +4,7 @@
     apt-get update
     apt-get upgrade
 
-## ANACONCA: 
+## ANACONCA:
     sudo bash ./Anaconda3-2024.06-1-Linux-x86_64.sh
 
 ## GIT
@@ -21,7 +21,6 @@
     pre-installation (Chapter 2) = https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
     https://www.freecodecamp.org/news/how-to-setup-windows-machine-for-ml-dl-using-nvidia-graphics-card-cuda/
 
-
     # everyday to use
     cd ~
     nano .bashrc
@@ -36,18 +35,15 @@
     echo $PATH
 
 # ESP32 Installation
-
     https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-macos-setup.html
 
 # FTP Connection
-
     sudo apt install ftp 
 
     ftp server_ip_address # or, ftp username@server_ip_address
     # password will be required in a prompt.
 
 # Docker
-
     sudo apt install gnome-terminal
 
     # Add Docker's official GPG key:
@@ -105,7 +101,13 @@
         pip install ultralytics==8.3.58
         pip install -I tensorflow[and-cuda]==2.18.0
         export XLA_FLAGS=--xla_gpu_strict_conv_algorithm_picker=false
+
 # LabelImg
     pip3 install labelImg
     labelImg
     labelImg [IMAGE_PATH] [PRE-DEFINED CLASS FILE]
+
+# Label-studio
+
+# Remmina
+    
