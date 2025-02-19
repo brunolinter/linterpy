@@ -110,4 +110,13 @@
 # Label-studio
 
 # Remmina
-    
+
+# Disk Permission
+    lsblk -o name,mountpoint,label,size,uuid
+    mount -o remount,rw /
+    chown root:root /usr/bin/sudo
+    chmod 4755 /usr/bin/sudo
+    chown root:root /usr/lib/sudo/sudoers.so
+    chmod 4755 /usr/lib/sudo/sudoers.so
+    chown root:root /etc/sudoers
+    chmod 4755 /etc/sudoers
