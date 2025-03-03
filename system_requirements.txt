@@ -108,6 +108,7 @@
     labelImg [IMAGE_PATH] [PRE-DEFINED CLASS FILE]
 
 # Label-studio
+    
 
 # Remmina
 
@@ -120,3 +121,8 @@
     chmod 4755 /usr/lib/sudo/sudoers.so
     chown root:root /etc/sudoers
     chmod 4755 /etc/sudoers
+
+# Docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    docker-compose --version
